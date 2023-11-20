@@ -6,6 +6,7 @@ import React from "react";
 import { MdArrowBack } from "react-icons/md";
 import Heading from "../components/heading";
 import Button from "../components/button";
+import ItemContent from "./item-content";
 
 const CartClient = () => {
   const { cartProducts } = useCart();
@@ -32,14 +33,14 @@ const CartClient = () => {
       <Heading title="Shopping Cart" center />
       <div className="grid grid-cols-5 text-xs gap-4 pb-2 items-center mt-8">
         <div className="col-span-2 justify-self-start">PRODUCT</div>
-        <div>PRICE</div>
+        <div className="justify-self-center">PRICE</div>
         <div className="justify-self-center">QUANTITY</div>
         <div className="justify-self-end">TOTAL</div>
       </div>
       <div>
         {cartProducts &&
           cartProducts.map((item) => {
-            return <div key={item.id}>{item.name}</div>;
+            return <ItemContent key={item.id} item={item} />;
           })}
       </div>
       <div className="border-t-[1.5px] border-slate-200 py-4 flex justify-between gap-4">
