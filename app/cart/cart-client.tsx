@@ -7,18 +7,19 @@ import { MdArrowBack } from "react-icons/md";
 import Heading from "../components/heading";
 import Button from "../components/button";
 import ItemContent from "./item-content";
+import { formatPrice } from "@/utils/format-price";
 
 const CartClient = () => {
-  const { cartProducts } = useCart();
+  const { cartProducts, cartTotalAmount, handleClearCart } = useCart();
 
   if (!cartProducts || cartProducts.length === 0) {
     return (
       <div className="flex flex-col items-center">
-        <div className="text-2xl">Cart is empty</div>
+        <div className="text-2xl">Your cart is empty</div>
         <div>
           <Link
             href={"/"}
-            className="text-slate-900 flex items-center gap-1 mt-2"
+            className="text-slate-500 flex items-center gap-1 mt-2"
           >
             <MdArrowBack />
             <span>Start Shopping</span>
@@ -45,12 +46,17 @@ const CartClient = () => {
       </div>
       <div className="border-t-[1.5px] border-slate-200 py-4 flex justify-between gap-4">
         <div className="w-[90px]">
-          <Button label="Clear Cart" onClick={() => {}} small outline />
+          <Button
+            label="Clear Cart"
+            onClick={() => handleClearCart()}
+            small
+            outline
+          />
         </div>
         <div className="text-sm flex flex-col gap-1 items-start">
           <div className="flex justify-between w-full text-base font-semibold">
             <span>Subtotal</span>
-            <span>$1.000</span>
+            <span>{formatPrice(cartTotalAmount)}</span>
           </div>
           <p className="text-slate-500">
             Taxes and shipping calculated at checkout

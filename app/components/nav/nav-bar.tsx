@@ -2,6 +2,7 @@ import Link from "next/link";
 import Container from "../container";
 import React from "react";
 import { Monoton } from "next/font/google";
+import CartCount from "./cart-count";
 
 const exo = Monoton({ subsets: ["latin"], weight: ["400"] });
 
@@ -16,7 +17,7 @@ const NavBar = () => {
             </Link>
             <div className="hidden md:block">Search</div>
             <div className="flex items-center gap-8 md:gap-12">
-              <div>CartCount</div>
+              <CartCount />
               <div>UserMenu</div>
             </div>
           </div>

@@ -1,14 +1,15 @@
 import Container from "@/app/components/container";
 import ProductDetails from "./product-details";
-import { product } from "@/utils/product";
 import ListRating from "./list-rating";
+import { products } from "@/utils/products";
 
-interface IParams {
+interface ItemParams {
   productId: string;
 }
 
-const Product = ({ params }: { params: IParams }) => {
-  console.log("params", params);
+const Product = ({ params }: { params: ItemParams }) => {
+  const product = products.find((item) => item.id === params.productId);
+
   return (
     <div className="p-8">
       <Container>
