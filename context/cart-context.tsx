@@ -1,5 +1,4 @@
 import { CartProductType } from "@/app/product/[productId]/product-details";
-import { product } from "@/utils/product";
 import {
   createContext,
   useCallback,
@@ -13,11 +12,13 @@ type CartContextType = {
   cartTotalQuantity: number;
   cartTotalAmount: number;
   cartProducts: CartProductType[] | null;
+  paymentIntent: string | null;
   handleAddProductToCart: (product: CartProductType) => void;
   handleRemoveProductFromCart: (product: CartProductType) => void;
   handleCartQuantityIncrease: (product: CartProductType) => void;
   handleCartQuantityDecrease: (product: CartProductType) => void;
   handleClearCart: () => void;
+  handleSetPaymentIntent: (value: string | null) => void;
 };
 
 interface Props {
@@ -32,12 +33,16 @@ export const CartContextProvider = (props: Props) => {
   const [cartProducts, setCartProducts] = useState<CartProductType[] | null>(
     null
   );
+  const [paymentIntent, setPaymentIntent] = useState<string | null>(null);
 
   useEffect(() => {
     const storage: any = localStorage.getItem("cartItems");
     const storageCartProducts: CartProductType[] | null = JSON.parse(storage);
+    const shopPaymentIntent: any = localStorage.getItem("paymentIntent");
+    const paymentIntent: string | null = JSON.parse(shopPaymentIntent);
 
     setCartProducts(storageCartProducts);
+    setPaymentIntent(paymentIntent);
   }, []);
 
   useEffect(() => {
@@ -149,15 +154,25 @@ export const CartContextProvider = (props: Props) => {
     localStorage.setItem("cartItems", JSON.stringify(null));
   }, [cartProducts]);
 
+  const handleSetPaymentIntent = useCallback(
+    (value: string | null) => {
+      setPaymentIntent(value);
+      localStorage.setItem("paymentIntent", JSON.stringify(value));
+    },
+    [paymentIntent]
+  );
+
   const value = {
     cartTotalQuantity,
     cartTotalAmount,
     cartProducts,
+    paymentIntent,
     handleAddProductToCart,
     handleRemoveProductFromCart,
     handleCartQuantityIncrease,
     handleCartQuantityDecrease,
     handleClearCart,
+    handleSetPaymentIntent,
   };
   return <CartContext.Provider value={value} {...props} />;
 };
