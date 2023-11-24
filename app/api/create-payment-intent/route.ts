@@ -2,7 +2,7 @@ import Stripe from "stripe";
 import prisma from "@/libs/prismadb";
 import { NextResponse } from "next/server";
 import { CartProductType } from "@/app/product/[productId]/product-details";
-import { getCurrentUser } from "@/actions/get-current-user";
+import getCurrentUser from "@/actions/get-current-user";
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY as string, {
   apiVersion: "2023-10-16",

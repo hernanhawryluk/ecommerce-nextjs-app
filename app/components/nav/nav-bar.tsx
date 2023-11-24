@@ -4,7 +4,7 @@ import React from "react";
 import { Monoton } from "next/font/google";
 import CartCount from "./cart-count";
 import UserMenu from "./user-menu";
-import { getCurrentUser } from "@/actions/get-current-user";
+import getCurrentUser from "@/actions/get-current-user";
 
 const exo = Monoton({ subsets: ["latin"], weight: ["400"] });
 
