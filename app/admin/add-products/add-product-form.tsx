@@ -19,6 +19,8 @@ import {
   uploadBytesResumable,
 } from "firebase/storage";
 import firebaseApp from "@/libs/firebase";
+import axios from "axios";
+import { useRouter } from "next/navigation";
 
 export type ImageType = {
   color: string;
@@ -33,6 +35,7 @@ export type UploadedImageType = {
 };
 
 const AddProductForm = () => {
+  const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
   const [images, setImages] = useState<ImageType[] | null>();
   const [isProductCreated, setIsProductCreated] = useState(false);
@@ -142,7 +145,21 @@ const AddProductForm = () => {
     };
     await handleImageUploads();
     const productData = { ...data, images: uploadedImages };
-    console.log("Product Data", productData);
+
+    axios
+      .post("/api/product", productData)
+      .then(() => {
+        toast.success("Product created");
+        setIsProductCreated(true);
+        router.refresh();
+      })
+      .catch((error) => {
+        toast.error("Something went wrong.");
+        console.log("Error creating product", error);
+      })
+      .finally(() => {
+        setIsLoading(false);
+      });
   };
 
   const category = watch("category");
