@@ -22,11 +22,11 @@ type ExtendedOrder = Order & {
   user: User;
 };
 
-interface ManageOrdersClientProps {
+interface OrdersClient {
   orders: ExtendedOrder[];
 }
 
-const ManageOrdersClient: React.FC<ManageOrdersClientProps> = ({ orders }) => {
+const OrdersClient: React.FC<OrdersClient> = ({ orders }) => {
   const router = useRouter();
   let rows: any = [];
 
@@ -42,38 +42,6 @@ const ManageOrdersClient: React.FC<ManageOrdersClientProps> = ({ orders }) => {
       };
     });
   }
-
-  const handleDispatch = useCallback((id: string) => {
-    axios
-      .put("/api/order", {
-        id,
-        deliveryStatus: "dispatched",
-      })
-      .then((res) => {
-        toast.success("Order Dispatched.");
-        router.refresh();
-      })
-      .catch((error) => {
-        toast.error("Oops! Something went wrong.");
-        console.log(error);
-      });
-  }, []);
-
-  const handleDeliver = useCallback((id: string) => {
-    axios
-      .put("/api/order", {
-        id,
-        deliveryStatus: "delivered",
-      })
-      .then((res) => {
-        toast.success("Order Delivered.");
-        router.refresh();
-      })
-      .catch((error) => {
-        toast.error("Oops! Something went wrong.");
-        console.log(error);
-      });
-  }, []);
 
   const columns: GridColDef[] = [
     { field: "id", headerName: "ID", width: 220 },
@@ -160,18 +128,6 @@ const ManageOrdersClient: React.FC<ManageOrdersClientProps> = ({ orders }) => {
         return (
           <div className="flex justify-between gap-4 w-full">
             <ActionButton
-              icon={MdDeliveryDining}
-              onClick={() => {
-                handleDispatch(params.row.id);
-              }}
-            />
-            <ActionButton
-              icon={MdDone}
-              onClick={() => {
-                handleDeliver(params.row.id);
-              }}
-            />
-            <ActionButton
               icon={MdRemoveRedEye}
               onClick={() => {
                 router.push(`/order/${params.row.id}`);
@@ -206,4 +162,4 @@ const ManageOrdersClient: React.FC<ManageOrdersClientProps> = ({ orders }) => {
   );
 };
 
-export default ManageOrdersClient;
+export default OrdersClient;
