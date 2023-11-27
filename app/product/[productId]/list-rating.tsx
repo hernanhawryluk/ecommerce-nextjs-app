@@ -9,6 +9,8 @@ interface ListRatingProps {
 }
 
 const ListRating: React.FC<ListRatingProps> = ({ product }) => {
+  if (product.reviews.length === 0) return null;
+
   return (
     <div>
       <Heading title="Product Review" />
