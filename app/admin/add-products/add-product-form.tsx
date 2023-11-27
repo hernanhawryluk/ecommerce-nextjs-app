@@ -72,9 +72,6 @@ const AddProductForm = () => {
   }, [isProductCreated]);
 
   const onSubmit: SubmitHandler<FieldValues> = async (data) => {
-    console.log("Product Data", data);
-    // upload images to firebase
-    // save product to mongodb
     setIsLoading(true);
     let uploadedImages: UploadedImageType[] = [];
 

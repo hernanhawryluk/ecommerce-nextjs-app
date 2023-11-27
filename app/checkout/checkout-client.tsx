@@ -21,9 +21,6 @@ const CheckoutClient = () => {
   const [clientSecret, setClientSecret] = useState("");
   const [paymentSuccess, setPaymentSuccess] = useState(false);
 
-  console.log("paymentIntent", paymentIntent);
-  console.log("clientSecret", clientSecret);
-
   useEffect(() => {
     if (cartProducts) {
       setLoading(true);

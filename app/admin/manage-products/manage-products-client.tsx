@@ -70,7 +70,6 @@ const ManageProductsClient: React.FC<ManageProductsClientProps> = ({
           if (item.image) {
             const imageRef = ref(storage, item.image);
             await deleteObject(imageRef);
-            console.log("image deleted", item.image);
           }
         }
       } catch (error) {

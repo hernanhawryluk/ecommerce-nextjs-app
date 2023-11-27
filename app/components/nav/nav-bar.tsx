@@ -6,6 +6,7 @@ import CartCount from "./cart-count";
 import UserMenu from "./user-menu";
 import getCurrentUser from "@/actions/get-current-user";
 import Categories from "./categories";
+import SearchBar from "./search-bar";
 
 const exo = Monoton({ subsets: ["latin"], weight: ["400"] });
 
@@ -20,7 +21,9 @@ const NavBar = async () => {
             <Link href="/" className={`${exo.className} font-bold text-2xl`}>
               Smart Store
             </Link>
-            <div className="hidden md:block">Search</div>
+            <div className="hidden md:block">
+              <SearchBar />
+            </div>
             <div className="flex items-center gap-8 md:gap-12">
               <CartCount />
               <UserMenu currentUser={currentUser} />
