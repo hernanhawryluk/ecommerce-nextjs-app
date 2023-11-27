@@ -7,7 +7,7 @@ import CustomCheckbox from "@/app/components/inputs/custom-checkbox";
 import Input from "@/app/components/inputs/input";
 import SelectColor from "@/app/components/inputs/select-color";
 import TextArea from "@/app/components/inputs/text-area";
-import { Categories } from "@/utils/categories";
+import { categories } from "@/utils/categories";
 import { colors } from "@/utils/colors";
 import { useCallback, useEffect, useState } from "react";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
@@ -239,7 +239,7 @@ const AddProductForm = () => {
       <div className="w-full font-medium ">
         <div className="mb-2 font-semibold">Select a Category</div>
         <div className="grid grid-cols-2 md:grid-cols-3 gap-3 max-h[50vh] overfolow-y-auto">
-          {Categories.map((item) => {
+          {categories.map((item) => {
             if (item.label === "All") {
               return null;
             }

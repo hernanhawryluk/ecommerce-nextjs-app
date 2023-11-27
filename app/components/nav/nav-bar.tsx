@@ -5,6 +5,7 @@ import { Monoton } from "next/font/google";
 import CartCount from "./cart-count";
 import UserMenu from "./user-menu";
 import getCurrentUser from "@/actions/get-current-user";
+import Categories from "./categories";
 
 const exo = Monoton({ subsets: ["latin"], weight: ["400"] });
 
@@ -27,6 +28,7 @@ const NavBar = async () => {
           </div>
         </Container>
       </div>
+      <Categories />
     </div>
   );
 };

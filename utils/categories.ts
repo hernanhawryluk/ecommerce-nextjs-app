@@ -7,7 +7,7 @@ import {
   MdWatch,
 } from "react-icons/md";
 
-export const Categories = [
+export const categories = [
   {
     label: "All",
     icon: MdStorefront,
