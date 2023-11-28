@@ -1,12 +1,12 @@
 # nextjs-commerce-app
 
 <div>
-<h4>Language options</h4>
+<h4>Opciones de lenguaje:</h4>
   <a href="https://github.com/hernanhawryluk/nextjs-commerce-app/blob/main/README.es.md"><img alt="Cambiar idioma al español" src="https://img.shields.io/badge/idioma-español-yellow.svg"></a>
   <a href="#"><img alt="Visitor Badge" src="https://visitor-badge.laobi.icu/badge?page_id=hernanhawryluk.nextjs-commerce-app"></a>
 </div>
 <div>
-  <h3>Technologies used</h3>
+  <h3>Tecnologías utilizadas</h3>
   <a href="#"><img alt="React" src="https://img.shields.io/badge/React-18.2.0-blue?logo=react"></a>
   <a href="#"><img alt="Next.js" src="https://img.shields.io/badge/Next.js-14.0.3-blue?logo=next.js&logoColor=000"></a>
   <a href="#"><img alt="TypeScript" src="https://img.shields.io/badge/TypeScript-5.2.2-blue?logo=typescript"></a>
@@ -16,21 +16,21 @@
   <a href="#"><img alt="Stripe" src="https://img.shields.io/badge/Stripe-14.5.0-blue?logo=stripe"></a>
 </div>
 
-## Description
+## Descripción
 
-A fullstack e-commerce website developed in Nextjs and deployed in Vercel. This platform features a responsive design, comprehensive cart functionality, seamless Stripe payment integration, and a robust dashboard for effortlessly managing inventory, adding or editing product listings, and overseeing customer orders.
+Una aplicación web de comercio electrónico desarrollada en Next.js y desplegada en Vercel. Esta plataforma cuenta con un diseño responsivo, autentificación de usuarios, opciones de búsqueda y filtrado, carrito de compras intuitivo, una integración fluida de pagos con Stripe y un robusto panel de control para gestionar fácilmente el inventario, agregar o editar listados de productos y supervisar los pedidos de los clientes.
 
-## Features
+## Características
 
-- Responsive and visually appealing design.
-- User authentication and login with Google.
-- Easily find products with search and filtering options.
-- Shopping cart function to add, remove and manage items.
-- Payment process and credit card validation through Stripe.
-- User-friendly Dashboard to efficiently manage products and orders.
-- Good performance, accessibility and SEO practices.
+- Diseño visualmente atractivo y responsivo.
+- Autenticación de usuarios e inicio de sesión con Google.
+- Encuentra fácilmente productos con opciones de búsqueda y filtrado.
+- Función de carrito de compras para agregar, quitar y gestionar artículos.
+- Proceso de pago y validación de tarjeta de crédito a través de Stripe.
+- Panel de Control fácil de usar para gestionar eficientemente productos y pedidos.
+- Buen rendimiento, accesibilidad y buenas prácticas de SEO.
 
-## Technologies Used
+## Tecnologías utilizadas
 
 - React.
 - Next.js.
@@ -40,22 +40,22 @@ A fullstack e-commerce website developed in Nextjs and deployed in Vercel. This 
 - MongoDb.
 - Stripe.
 
-## Visit the web application:
+## Visita la aplicación web
 
 - https://nextjs-commerce-app-pi.vercel.app/
 
-## How to Complete the Checkout Process?
+## ¿Cómo Completar el Proceso de Pago?
 
-- Utilize the following test card information:
+- Utilice la siguiente información de tarjeta de prueba:
 
-  - Card number: 4242 4242 4242 4242
-  - Expiry date: 04/44
-  - CVC code: 444
+  - Número de tarjeta: 4242 4242 4242 4242
+  - Fecha de vencimiento: 04/44
+  - Código CVC: 444
 
-- For more information about simulate payments to test integration visit:
+- Para más información sobre cómo simular pagos para probar la integración, visita:
   - https://stripe.com/docs/testing?locale=en-419
 
-## Where to find me?
+## ¿Donde encontrarme?
 
 <div>
   <a href="https://github.com/hernanhawryluk"><img alt="GitHub" src="https://img.shields.io/badge/GitHub-grey?style=for-the-badge&logo=github"></a>
