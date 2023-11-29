@@ -25,15 +25,15 @@ const NavBar: React.FC<NavBarPros> = ({ currentUser }) => {
     <div className="sticky top-0 w-full bg-slate-200 z-30 shadow-xl">
       <div className="py-4 border-b-[1px]">
         <Container>
-          <div className="flex items-center justify-between gap-3 md:gap-0">
+          <div className="flex items-center justify-between sm:px-2 xl:px-0">
             <Link
               href="/"
-              className={`${exo.className} font-bold text-[1.6rem]`}
+              className={`${exo.className} font-bold text-[1.3rem] sm:text-[1.7rem] hover:scale-105 active:scale-100 transition`}
             >
               Smart Store
             </Link>
 
-            <div className="flex items-center gap-8 md:gap-12">
+            <div className="flex items-center gap-4 md:gap-8 xl:gap-12">
               <div className="flex items-center gap-4">
                 <div
                   className={`hidden md:block opacity-0 transition 
@@ -44,12 +44,12 @@ const NavBar: React.FC<NavBarPros> = ({ currentUser }) => {
                 </div>
                 {searchBar ? (
                   <MdCancel
-                    className="text-[1.9rem] pb-[0.1rem] cursor-pointer hidden md:block"
+                    className="text-[1.9rem] pb-[0.1rem] cursor-pointer hidden md:block hover:scale-110 active:scale-[0.9] transition"
                     onClick={() => setSearchBar(false)}
                   />
                 ) : (
                   <CiSearch
-                    className="text-[1.9rem] pb-[0.1rem] cursor-pointer hidden md:block"
+                    className="text-[1.9rem] pb-[0.1rem] cursor-pointer hidden md:block hover:scale-110 active:scale-[0.9] transition"
                     onClick={() => setSearchBar(true)}
                   />
                 )}

@@ -1,5 +1,6 @@
 "use client";
 
+import { CircularProgress } from "@mui/material";
 import React from "react";
 import { IconType } from "react-icons";
 
@@ -9,6 +10,7 @@ interface ButtonProps {
   outline?: boolean;
   small?: boolean;
   custom?: string;
+  isLoading?: boolean;
   icon?: IconType;
   onClick: (e: React.MouseEvent<HTMLButtonElement>) => void;
 }
@@ -19,6 +21,7 @@ const Button: React.FC<ButtonProps> = ({
   outline,
   small,
   custom,
+  isLoading,
   icon: Icon,
   onClick,
 }) => {
@@ -26,7 +29,7 @@ const Button: React.FC<ButtonProps> = ({
     <button
       onClick={onClick}
       disabled={disabled}
-      className={`disabled:opacity-70 disabled:cursor-not-allowed rounded-md hover:opacity-80 w-full border-slate-700 flex items-center justify-center gap-2 
+      className={`disabled:opacity-70 disabled:cursor-not-allowed rounded-md hover:opacity-80 w-full border-slate-700 flex items-center justify-center gap-2 active:scale-95 transition
       ${outline ? "bg-white" : "bg-slate-700"}
       ${outline ? "text-slate-700" : "text-white"}
       ${small ? "text-sm font-light" : "text-md font-semibold"}
@@ -34,6 +37,7 @@ const Button: React.FC<ButtonProps> = ({
       ${custom ? custom : ""}
       `}
     >
+      {isLoading && <CircularProgress size={22} />}
       {Icon && <Icon size={24} />}
       {label}
     </button>

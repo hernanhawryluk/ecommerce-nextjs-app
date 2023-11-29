@@ -7,7 +7,7 @@ const Cart = async () => {
   const currentUser = await getCurrentUser();
 
   return (
-    <div className="pt-8">
+    <div className="pt-8 px-0 sm:px-4 xl:px-0">
       <Container>
         <CartClient currentUser={currentUser} />
       </Container>

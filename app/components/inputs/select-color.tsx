@@ -50,7 +50,7 @@ const SelectColor: React.FC<SelectColorsProps> = ({
           type="checkbox"
           checked={isSelected}
           onChange={handleCheck}
-          className="cursor-pointer"
+          className="cursor-pointer h-[19px] w-[19px]"
         />
         <label htmlFor={item.color} className="font-medium cursor-pointer">
           {item.color}

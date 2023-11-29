@@ -1,19 +1,42 @@
+"use client";
+
 import Image from "next/image";
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 const HomeBanner = () => {
+  const [season, setSeason] = useState("Summer");
+
+  useEffect(() => {
+    const date = new Date();
+    const month = date.getMonth() + 1;
+
+    switch (true) {
+      case month >= 3 && month <= 5:
+        setSeason("Spring");
+        break;
+      case month >= 6 && month <= 8:
+        setSeason("Summer");
+        break;
+      case month >= 9 && month <= 11:
+        setSeason("Autumn");
+        break;
+      default:
+        setSeason("Winter");
+    }
+  }, []);
+
   return (
-    <div className="relative bg-gradient-to-r from-sky-500 to-sky-700 mb-8">
+    <div className="mt-4 sm:mt-0 relative bg-gradient-to-r from-sky-600 to-sky-800 mb-8">
       <div className="mx-auto px-8 py-12 flex flex-col gap-2 md:flex-row items-center justify-evenly">
         <div className="mb-8 md:mb-0 text-center">
           <h1 className="text-4xl md:text-6xl font-bold text-white mb-4">
-            Summer Sale!
+            {season} Sale!
           </h1>
           <p className="text-lg md:text-xl text-white mb-2">
-            Enjoy discounts on selectedd items
+            Enjoy discounts on all items
           </p>
-          <p className="text-2xl md:text-5xl text-yellow-400 font-bold">
-            GET 50% off
+          <p className="text-2xl md:text-5xl bg-gradient-to-r text-transparent bg-clip-text from-yellow-500 to-amber-200 font-bold">
+            GET 20% off
           </p>
         </div>
         <div className="w-1/3 relative aspect-video">

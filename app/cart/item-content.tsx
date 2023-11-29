@@ -50,8 +50,10 @@ const ItemContent: React.FC<ItemContentProps> = ({ item }) => {
           </div>
         </div>
       </div>
-      <div className="justify-self-center">{formatPrice(item.price)}</div>
-      <div className="justify-self-center">
+      <div className="justify-self-center pl-4 sm:pl-0">
+        {formatPrice(item.price)}
+      </div>
+      <div className="justify-self-center pl-4 sm:pl-0">
         <SetQuantity
           cartCounter={true}
           cartProduct={item}

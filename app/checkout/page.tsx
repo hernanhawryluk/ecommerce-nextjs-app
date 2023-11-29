@@ -4,7 +4,7 @@ import CheckoutClient from "./checkout-client";
 
 const Checkout = () => {
   return (
-    <div className="p-8">
+    <div className="-mt-20 sm:mt-0">
       <Container>
         <FormWrap>
           <CheckoutClient />

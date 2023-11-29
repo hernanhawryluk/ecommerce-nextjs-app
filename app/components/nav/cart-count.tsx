@@ -11,7 +11,7 @@ const CartCount = () => {
 
   return (
     <div
-      className="relative cursor-pointer"
+      className="relative cursor-pointer hover:scale-110 active:scale-[0.9] transition"
       onClick={() => router.push("/cart")}
     >
       <div className="text-[2rem] pb-[0.1rem]">

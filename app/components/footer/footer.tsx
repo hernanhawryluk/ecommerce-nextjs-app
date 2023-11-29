@@ -12,19 +12,22 @@ import { categories } from "@/utils/categories";
 import Categories from "./categories";
 
 const Footer = () => {
+  const socialClasses =
+    "text-[1.75rem] hover:text-slate-50 hover:scale-[1.2] active:scale-95 transition";
+
   return (
     <footer className="bg-slate-700 text-slate-200 text-sm mt-16">
       <Container>
         <div className="px-8 flex flex-col md:flex-row justify-between pt-10 pb-4">
           <FooterList>
-            <h3 className="font-bold text-base mb-2">Shop Categories</h3>
+            <h3 className="font-bold text-base mb-1">Shop Categories</h3>
             {categories.map((item) => (
               <Categories key={item.label} label={item.label} />
             ))}
           </FooterList>
 
           <FooterList>
-            <h3 className="font-bold text-base mb-2">Customer Service</h3>
+            <h3 className="font-bold text-base mb-1">Customer Service</h3>
             <Link href="#">Contact Us</Link>
             <Link href="#">Shipping Policy</Link>
             <Link href="#">Returns & Exchanges</Link>
@@ -45,18 +48,18 @@ const Footer = () => {
           </div>
           <FooterList>
             <h3 className="font-bold text-base mb-2">Follow Us</h3>
-            <div className="flex gap-2">
+            <div className="flex gap-3">
               <Link href="#">
-                <MdFacebook size={24} />
+                <MdFacebook className={socialClasses} />
               </Link>
               <Link href="#">
-                <AiFillTwitterCircle size={24} />
+                <AiFillTwitterCircle className={socialClasses} />
               </Link>
               <Link href="#">
-                <AiFillInstagram size={24} />
+                <AiFillInstagram className={socialClasses} />
               </Link>
               <Link href="#">
-                <AiFillYoutube size={24} />
+                <AiFillYoutube className={socialClasses} />
               </Link>
             </div>
           </FooterList>

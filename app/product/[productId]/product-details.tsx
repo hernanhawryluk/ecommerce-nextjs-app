@@ -104,9 +104,6 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({ product }) => {
         <h2 className="text-3xl font-medium text-slate-700 mb-1">
           {product.name}
         </h2>
-        <p className="text-2xl text-slate-600 font-bold mb-2">
-          {formatPrice(product.price)}
-        </p>
         <div className="flex items-center gap-2">
           <Rating value={productRating(product.reviews)} readOnly />
           <div>{product.reviews.length} reviews</div>
@@ -156,6 +153,11 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({ product }) => {
               handleQuantityIncrease={handleQuantityIncrease}
               handleQuantityDecrease={handleQuantityDecrease}
             />
+            <Horizontal />
+            <div className="flex gap-4 text-2xl text-slate-600 font-bold mb-2">
+              <span>Total </span>
+              {formatPrice(product.price * cartProduct.quantity)}
+            </div>
             <Horizontal />
             <div className="max-w-[300px]">
               <Button

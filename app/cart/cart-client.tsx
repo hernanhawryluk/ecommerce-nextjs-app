@@ -21,12 +21,12 @@ const CartClient: React.FC<CartClientProps> = ({ currentUser }) => {
 
   if (!cartProducts || cartProducts.length === 0) {
     return (
-      <div className="flex flex-col items-center">
+      <div className="flex flex-col items-center justify-center mt-8">
         <div className="text-2xl">Your cart is empty</div>
         <div>
           <Link
             href={"/"}
-            className="text-slate-500 flex items-center gap-1 mt-2"
+            className="text-slate-500 flex items-center gap-1 mt-2 hover:scale-110 active:scale-100 transition"
           >
             <MdArrowBack />
             <span>Start Shopping</span>
@@ -41,8 +41,8 @@ const CartClient: React.FC<CartClientProps> = ({ currentUser }) => {
       <Heading title="Shopping Cart" center />
       <div className="grid grid-cols-5 text-xs gap-4 pb-2 items-center mt-8">
         <div className="col-span-2 justify-self-start">PRODUCT</div>
-        <div className="justify-self-center">PRICE</div>
-        <div className="justify-self-center">QUANTITY</div>
+        <div className="justify-self-center pl-4 sm:pl-0">PRICE</div>
+        <div className="justify-self-center pl-4 sm:pl-0">QUANTITY</div>
         <div className="justify-self-end">TOTAL</div>
       </div>
       <div>
@@ -65,6 +65,7 @@ const CartClient: React.FC<CartClientProps> = ({ currentUser }) => {
             <span>Subtotal</span>
             <span>{formatPrice(cartTotalAmount)}</span>
           </div>
+          <p></p>
           <p className="text-slate-500">
             Taxes and shipping calculated at checkout
           </p>
@@ -77,7 +78,7 @@ const CartClient: React.FC<CartClientProps> = ({ currentUser }) => {
           />
           <Link
             href={"/"}
-            className="text-slate-500 flex items-center gap-1 mt-2"
+            className="text-slate-500 flex items-center gap-1 mt-2  hover:scale-110 active:scale-100 transition"
           >
             <MdArrowBack />
             <span>Continue Shopping</span>
