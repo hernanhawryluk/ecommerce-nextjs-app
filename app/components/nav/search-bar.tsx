@@ -42,11 +42,11 @@ const SearchBar = () => {
         autoComplete="off"
         type="text"
         placeholder="Explore SmartStore"
-        className="p-2 border boder-gray-300 rounded-l-md focus:outline-none focus:border-[0.5px] focus:border-slate-500 w-80"
+        className="p-[0.3rem] border boder-gray-300 rounded-l-md focus:outline-none focus:border-[0.5px] focus:border-slate-500 w-60"
       />
       <button
         onClick={handleSubmit(onSubmit)}
-        className="bg-slate-700 hoverLopacity-80 text-white p-2 rounded-r-md"
+        className="bg-slate-700 hoverLopacity-80 text-white p-[0.3rem] w-20 rounded-r-md"
       >
         Search
       </button>

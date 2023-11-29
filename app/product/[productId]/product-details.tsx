@@ -11,6 +11,7 @@ import { useCart } from "@/context/cart-context";
 import { MdCheckCircle } from "react-icons/md";
 import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
+import { formatPrice } from "@/utils/format-price";
 interface ProductDetailsProps {
   product: any;
 }
@@ -99,8 +100,13 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({ product }) => {
           handleColorSelect={handleColorSelect}
         />
       </div>
-      <div className="flex flex-col gap-1 text-slate-400 text-sm">
-        <h2 className="text-3xl font-medium text-slate-700">{product.name}</h2>
+      <div className="flex flex-col gap-1 text-slate-500 text-sm">
+        <h2 className="text-3xl font-medium text-slate-700 mb-1">
+          {product.name}
+        </h2>
+        <p className="text-2xl text-slate-600 font-bold mb-2">
+          {formatPrice(product.price)}
+        </p>
         <div className="flex items-center gap-2">
           <Rating value={productRating(product.reviews)} readOnly />
           <div>{product.reviews.length} reviews</div>
@@ -114,7 +120,12 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({ product }) => {
         <div>
           <span className="font-semibold">BRAND:</span> {product.brand}
         </div>
-        <div className={product.inStock ? "text-teal-400" : "text-rose-400"}>
+        <div
+          className={`
+        font-semibold
+          ${product.inStock ? "text-teal-500" : "text-rose-500"}
+          `}
+        >
           {product.inStock ? "In stock" : "Out of stock"}
         </div>
         <Horizontal />

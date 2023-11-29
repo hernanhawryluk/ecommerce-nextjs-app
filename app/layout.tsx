@@ -5,6 +5,7 @@ import NavBar from "./components/nav/nav-bar";
 import Footer from "./components/footer/footer";
 import CartProvider from "@/provider/cart-provider";
 import { Toaster } from "react-hot-toast";
+import getCurrentUser from "@/actions/get-current-user";
 
 const poppins = Poppins({ subsets: ["latin"], weight: ["400", "700"] });
 
@@ -18,6 +19,8 @@ export default async function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
+  const currentUser = await getCurrentUser();
+
   return (
     <html lang="en">
       <body
@@ -32,7 +35,7 @@ export default async function RootLayout({
           }}
         />
         <CartProvider>
-          <NavBar />
+          <NavBar currentUser={currentUser} />
           <main className="flex-grow">{children}</main>
           <Footer />
         </CartProvider>

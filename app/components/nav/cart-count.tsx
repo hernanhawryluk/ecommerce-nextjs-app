@@ -14,10 +14,14 @@ const CartCount = () => {
       className="relative cursor-pointer"
       onClick={() => router.push("/cart")}
     >
-      <div className="text-3xl">
+      <div className="text-[2rem] pb-[0.1rem]">
         <CiShoppingCart />
       </div>
-      <span className="absolute top-[-10px] right-[-10px] bg-slate-700 text-white h-6 w-6 rounded-full flex items-center justify-center text-sm">
+      <span
+        className={`absolute top-[-4px] right-[-10px] bg-slate-600 text-white h-5 w-5 rounded-full flex items-center justify-center text-sm
+      ${cartTotalQuantity === 0 ? "hidden" : "block"}
+      `}
+      >
         {cartTotalQuantity}
       </span>
     </div>

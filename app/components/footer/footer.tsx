@@ -8,20 +8,19 @@ import {
   AiFillTwitterCircle,
   AiFillYoutube,
 } from "react-icons/ai";
+import { categories } from "@/utils/categories";
+import Categories from "./categories";
 
 const Footer = () => {
   return (
     <footer className="bg-slate-700 text-slate-200 text-sm mt-16">
       <Container>
-        <div className="flex flex-col md:flex-row justify-between pt-16 pb-8">
+        <div className="px-8 flex flex-col md:flex-row justify-between pt-10 pb-4">
           <FooterList>
             <h3 className="font-bold text-base mb-2">Shop Categories</h3>
-            <Link href="#">Phones</Link>
-            <Link href="#">Laptops</Link>
-            <Link href="#">Desktops</Link>
-            <Link href="#">Watches</Link>
-            <Link href="#">TVs</Link>
-            <Link href="#">Accessories</Link>
+            {categories.map((item) => (
+              <Categories key={item.label} label={item.label} />
+            ))}
           </FooterList>
 
           <FooterList>

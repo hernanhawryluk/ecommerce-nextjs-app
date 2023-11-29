@@ -1,10 +1,7 @@
 "use client";
 
-import { useSearchParams } from "next/dist/client/components/navigation";
-import { useRouter } from "next/navigation";
-import queryString from "query-string";
-import { useCallback } from "react";
 import { IconType } from "react-icons";
+import useCategories from "@/hooks/use-categories";
 
 interface CategoryProps {
   label: string;
@@ -13,41 +10,11 @@ interface CategoryProps {
 }
 
 const Category: React.FC<CategoryProps> = ({ label, icon: Icon, selected }) => {
-  const router = useRouter();
-  const params = useSearchParams();
-
-  const handleClick = useCallback(() => {
-    if (label === "All") {
-      router.push("/");
-    } else {
-      let currentQuery = {};
-
-      if (params) {
-        currentQuery = queryString.parse(params.toString());
-      }
-
-      const updatedQuery: any = {
-        ...currentQuery,
-        category: label,
-      };
-
-      const url = queryString.stringifyUrl(
-        {
-          url: "/",
-          query: updatedQuery,
-        },
-        {
-          skipNull: true,
-        }
-      );
-
-      router.push(url);
-    }
-  }, [label, params, router]);
+  const { handleChangeCategory } = useCategories({ label });
 
   return (
     <div
-      onClick={handleClick}
+      onClick={handleChangeCategory}
       className={`flex items-center justify-center text-center gap-1 p-2 border-b-2 hover:text-slate-800 transition cursor-pointer
     ${
       selected
