@@ -65,6 +65,7 @@ const CheckoutForm: React.FC<CheckoutFormProps> = ({
         setIsLoading(false);
       });
   };
+
   return (
     <form onSubmit={handleSubmit} id="payment-form">
       <div className="mb-6">

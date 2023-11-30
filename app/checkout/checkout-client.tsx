@@ -4,7 +4,7 @@ import { useCart } from "@/context/cart-context";
 import { Elements } from "@stripe/react-stripe-js";
 import { StripeElementsOptions, loadStripe } from "@stripe/stripe-js";
 import { useRouter } from "next/navigation";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useState, useRef } from "react";
 import toast from "react-hot-toast";
 import CheckoutForm from "./checkout-form";
 import Button from "../components/button";
@@ -20,12 +20,15 @@ const CheckoutClient = () => {
   const [error, setError] = useState(false);
   const [clientSecret, setClientSecret] = useState("");
   const [paymentSuccess, setPaymentSuccess] = useState(false);
+  const hasRunOnce = useRef(false);
 
   useEffect(() => {
+    if (hasRunOnce.current) return;
+    hasRunOnce.current = true;
+
     if (cartProducts) {
       setLoading(true);
       setError(false);
-
       fetch("/api/create-payment-intent", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -36,11 +39,9 @@ const CheckoutClient = () => {
       })
         .then((res) => {
           setLoading(false);
-
           if (res.status === 401) {
             return router.push("login");
           }
-
           return res.json();
         })
         .then((data) => {
@@ -53,7 +54,7 @@ const CheckoutClient = () => {
           toast.error("Something went wrong.");
         });
     }
-  }, [cartProducts, paymentIntent]);
+  }, []);
 
   const options: StripeElementsOptions = {
     clientSecret,
@@ -63,20 +64,15 @@ const CheckoutClient = () => {
     },
   };
 
-  const handleSetPaymentSuccess = useCallback((value: boolean) => {
-    setPaymentSuccess(value);
-  }, []);
+  const handleSetPaymentSuccess = useCallback(
+    (value: boolean) => {
+      setPaymentSuccess(value);
+    },
+    [cartProducts, paymentIntent]
+  );
 
   return (
     <div className="w-full">
-      {clientSecret && cartProducts && (
-        <Elements options={options} stripe={stripePromise}>
-          <CheckoutForm
-            clientSecret={clientSecret}
-            handleSetPaymentSuccess={handleSetPaymentSuccess}
-          />
-        </Elements>
-      )}
       {loading && <div className="text-center">Loading Checkout...</div>}
       {error && (
         <div className="text-center text-rose-500">Something went wrong...</div>
@@ -91,6 +87,14 @@ const CheckoutClient = () => {
             />
           </div>
         </div>
+      )}
+      {clientSecret && cartProducts && (
+        <Elements options={options} stripe={stripePromise}>
+          <CheckoutForm
+            clientSecret={clientSecret}
+            handleSetPaymentSuccess={handleSetPaymentSuccess}
+          />
+        </Elements>
       )}
     </div>
   );

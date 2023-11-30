@@ -13,7 +13,7 @@ const Order = async ({ params }: { params: ItemParams }) => {
   if (!order) return <NullData title="No order" />;
 
   return (
-    <div className="p-8">
+    <div className="p-1 sm:p-8">
       <Container>
         <OrderDetails order={order} />
       </Container>

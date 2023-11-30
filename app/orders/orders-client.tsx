@@ -10,14 +10,16 @@ import {
   MdDelete,
   MdDeliveryDining,
   MdDone,
+  MdRefresh,
   MdRemoveRedEye,
 } from "react-icons/md";
 import ActionButton from "@/app/components/action-button";
-import { useCallback } from "react";
+import { useCallback, useEffect } from "react";
 import toast from "react-hot-toast";
 import axios from "axios";
 import { useRouter } from "next/navigation";
 import moment from "moment";
+import { useCart } from "@/context/cart-context";
 
 type ExtendedOrder = Order & {
   user: User;
@@ -29,6 +31,7 @@ interface OrdersClient {
 
 const OrdersClient: React.FC<OrdersClient> = ({ orders }) => {
   const router = useRouter();
+  const { handleRemovePaymentIntent } = useCart();
   let rows: any = [];
 
   const handleDeleteOrder = useCallback((row: string) => {
@@ -37,7 +40,7 @@ const OrdersClient: React.FC<OrdersClient> = ({ orders }) => {
         row,
       })
       .then((res) => {
-        localStorage.removeItem("paymentIntent");
+        handleRemovePaymentIntent();
         toast.success("Order Deleted.");
         router.refresh();
       })
@@ -140,7 +143,7 @@ const OrdersClient: React.FC<OrdersClient> = ({ orders }) => {
     {
       field: "action",
       headerName: "Actions",
-      width: 200,
+      width: 120,
       renderCell: (params) => {
         return (
           <div className="flex items-center gap-3 w-full">
@@ -182,6 +185,15 @@ const OrdersClient: React.FC<OrdersClient> = ({ orders }) => {
           checkboxSelection
           disableRowSelectionOnClick
         />
+        <div className="flex justify-center">
+          <div
+            className="flex mx-8 items-center gap-2 justify-center mt-3 cursor-pointer hover:scale-110 active:scale-105 transition"
+            onClick={() => router.refresh()}
+          >
+            <MdRefresh className="text-4xl " />
+            <span>Refresh orders</span>
+          </div>
+        </div>
       </div>
     </div>
   );

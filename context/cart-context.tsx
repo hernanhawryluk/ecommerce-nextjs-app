@@ -19,6 +19,7 @@ type CartContextType = {
   handleCartQuantityDecrease: (product: CartProductType) => void;
   handleClearCart: () => void;
   handleSetPaymentIntent: (value: string | null) => void;
+  handleRemovePaymentIntent: () => void;
 };
 
 interface Props {
@@ -162,6 +163,11 @@ export const CartContextProvider = (props: Props) => {
     [paymentIntent]
   );
 
+  const handleRemovePaymentIntent = useCallback(() => {
+    localStorage.removeItem("paymentIntent");
+    setPaymentIntent(null);
+  }, [paymentIntent]);
+
   const value = {
     cartTotalQuantity,
     cartTotalAmount,
@@ -173,6 +179,7 @@ export const CartContextProvider = (props: Props) => {
     handleCartQuantityDecrease,
     handleClearCart,
     handleSetPaymentIntent,
+    handleRemovePaymentIntent,
   };
   return <CartContext.Provider value={value} {...props} />;
 };

@@ -172,10 +172,10 @@ const ManageOrdersClient: React.FC<ManageOrdersClientProps> = ({ orders }) => {
     {
       field: "action",
       headerName: "Actions",
-      width: 200,
+      width: 180,
       renderCell: (params) => {
         return (
-          <div className="flex justify-between gap-3 w-full">
+          <div className="flex gap-3 w-full">
             <ActionButton
               icon={MdDeliveryDining}
               onClick={() => {
@@ -188,6 +188,12 @@ const ManageOrdersClient: React.FC<ManageOrdersClientProps> = ({ orders }) => {
                 handleDeliver(params.row.id);
               }}
             />
+            <ActionButton
+              icon={MdRemoveRedEye}
+              onClick={() => {
+                router.push(`/order/${params.row.id}`);
+              }}
+            />
             {params.row.paymentStatus === "pending" && (
               <ActionButton
                 icon={MdDelete}
@@ -196,12 +202,6 @@ const ManageOrdersClient: React.FC<ManageOrdersClientProps> = ({ orders }) => {
                 }}
               />
             )}
-            <ActionButton
-              icon={MdRemoveRedEye}
-              onClick={() => {
-                router.push(`/order/${params.row.id}`);
-              }}
-            />
           </div>
         );
       },
