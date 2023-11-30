@@ -7,6 +7,7 @@ import Heading from "@/app/components/heading";
 import Status from "@/app/components/status";
 import {
   MdAccessTimeFilled,
+  MdDelete,
   MdDeliveryDining,
   MdDone,
   MdRemoveRedEye,
@@ -67,6 +68,22 @@ const ManageOrdersClient: React.FC<ManageOrdersClientProps> = ({ orders }) => {
       })
       .then((res) => {
         toast.success("Order Delivered.");
+        router.refresh();
+      })
+      .catch((error) => {
+        toast.error("Oops! Something went wrong.");
+        console.log(error);
+      });
+  }, []);
+
+  const handleDeleteOrder = useCallback((row: string) => {
+    axios
+      .put("/api/delete-order", {
+        row,
+      })
+      .then((res) => {
+        localStorage.removeItem("paymentIntent");
+        toast.success("Order Deleted.");
         router.refresh();
       })
       .catch((error) => {
@@ -158,7 +175,7 @@ const ManageOrdersClient: React.FC<ManageOrdersClientProps> = ({ orders }) => {
       width: 200,
       renderCell: (params) => {
         return (
-          <div className="flex justify-between gap-4 w-full">
+          <div className="flex justify-between gap-3 w-full">
             <ActionButton
               icon={MdDeliveryDining}
               onClick={() => {
@@ -171,6 +188,14 @@ const ManageOrdersClient: React.FC<ManageOrdersClientProps> = ({ orders }) => {
                 handleDeliver(params.row.id);
               }}
             />
+            {params.row.paymentStatus === "pending" && (
+              <ActionButton
+                icon={MdDelete}
+                onClick={() => {
+                  handleDeleteOrder(params.row);
+                }}
+              />
+            )}
             <ActionButton
               icon={MdRemoveRedEye}
               onClick={() => {

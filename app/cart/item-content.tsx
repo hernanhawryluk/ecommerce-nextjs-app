@@ -55,6 +55,7 @@ const ItemContent: React.FC<ItemContentProps> = ({ item }) => {
       </div>
       <div className="justify-self-center pl-4 sm:pl-0">
         <SetQuantity
+          cartMode={true}
           cartCounter={true}
           cartProduct={item}
           handleQuantityIncrease={() => handleCartQuantityIncrease(item)}

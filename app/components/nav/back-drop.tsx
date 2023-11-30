@@ -1,13 +1,16 @@
+import Backdrop from "@mui/material/Backdrop";
+
 interface BackDropProps {
   onClick: () => void;
 }
 
 const BackDrop: React.FC<BackDropProps> = ({ onClick }) => {
   return (
-    <div
+    <Backdrop
+      sx={{ color: "#fff", zIndex: 0 }}
+      open={true}
       onClick={onClick}
-      className="z-20 bg-slate-200 opacity-50 w-screen h-screen fixed top-0 left-0 transition"
-    ></div>
+    ></Backdrop>
   );
 };
 

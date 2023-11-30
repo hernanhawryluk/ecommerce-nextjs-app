@@ -14,7 +14,10 @@ const Categories: React.FC<CategoriesProps> = ({ label }) => {
   }
 
   return (
-    <div className="cursor-pointer" onClick={handleChangeCategory}>
+    <div
+      className="hover:text-slate-50 transition cursor-pointer"
+      onClick={handleChangeCategory}
+    >
       {label}
     </div>
   );

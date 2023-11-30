@@ -28,7 +28,7 @@ const NavBar: React.FC<NavBarPros> = ({ currentUser }) => {
           <div className="flex items-center justify-between sm:px-2 xl:px-0">
             <Link
               href="/"
-              className={`${exo.className} font-bold text-[1.3rem] sm:text-[1.7rem] hover:scale-105 active:scale-100 transition`}
+              className={`${exo.className} font-bold text-[1.3rem] sm:text-[1.75rem] hover:scale-105 active:scale-100 transition`}
             >
               Smart Store
             </Link>

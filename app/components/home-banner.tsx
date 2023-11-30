@@ -2,27 +2,13 @@
 
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
+import { currentSeason } from "@/utils/current-season";
 
 const HomeBanner = () => {
   const [season, setSeason] = useState("Summer");
 
   useEffect(() => {
-    const date = new Date();
-    const month = date.getMonth() + 1;
-
-    switch (true) {
-      case month >= 3 && month <= 5:
-        setSeason("Spring");
-        break;
-      case month >= 6 && month <= 8:
-        setSeason("Summer");
-        break;
-      case month >= 9 && month <= 11:
-        setSeason("Autumn");
-        break;
-      default:
-        setSeason("Winter");
-    }
+    setSeason(currentSeason());
   }, []);
 
   return (

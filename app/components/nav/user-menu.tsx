@@ -33,12 +33,22 @@ const UserMenu: React.FC<UserMenuProps> = ({ currentUser }) => {
           <div className="absolute rounded-md shadow-md w-[170px] bg-white overflow-hidden right-0 top-12 text-sm flex flex-col cursor-pointer">
             {currentUser ? (
               <div>
-                <Link href="/orders">
-                  <MenuItem onClick={toggleOpen}>Your Orders</MenuItem>
-                </Link>
-                <Link href="/admin">
-                  <MenuItem onClick={toggleOpen}>Admin Dashboard</MenuItem>
-                </Link>
+                {currentUser.role === "ADMIN" ? (
+                  <div>
+                    <Link href="/orders">
+                      <MenuItem onClick={toggleOpen}>Your Orders</MenuItem>
+                    </Link>
+                    <Link href="/admin">
+                      <MenuItem onClick={toggleOpen}>Admin Dashboard</MenuItem>
+                    </Link>
+                  </div>
+                ) : (
+                  <div>
+                    <Link href="/orders">
+                      <MenuItem onClick={toggleOpen}>Your Orders</MenuItem>
+                    </Link>
+                  </div>
+                )}
                 <hr />
                 <MenuItem
                   onClick={() => {

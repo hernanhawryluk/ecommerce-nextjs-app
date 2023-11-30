@@ -7,6 +7,7 @@ import Heading from "@/app/components/heading";
 import Status from "@/app/components/status";
 import {
   MdAccessTimeFilled,
+  MdDelete,
   MdDeliveryDining,
   MdDone,
   MdRemoveRedEye,
@@ -29,6 +30,22 @@ interface OrdersClient {
 const OrdersClient: React.FC<OrdersClient> = ({ orders }) => {
   const router = useRouter();
   let rows: any = [];
+
+  const handleDeleteOrder = useCallback((row: string) => {
+    axios
+      .put("/api/delete-order", {
+        row,
+      })
+      .then((res) => {
+        localStorage.removeItem("paymentIntent");
+        toast.success("Order Deleted.");
+        router.refresh();
+      })
+      .catch((error) => {
+        toast.error("Oops! Something went wrong.");
+        console.log(error);
+      });
+  }, []);
 
   if (orders) {
     rows = orders.map((order) => {
@@ -126,13 +143,21 @@ const OrdersClient: React.FC<OrdersClient> = ({ orders }) => {
       width: 200,
       renderCell: (params) => {
         return (
-          <div className="flex justify-between gap-4 w-full">
+          <div className="flex items-center gap-3 w-full">
             <ActionButton
               icon={MdRemoveRedEye}
               onClick={() => {
                 router.push(`/order/${params.row.id}`);
               }}
             />
+            {params.row.paymentStatus === "pending" && (
+              <ActionButton
+                icon={MdDelete}
+                onClick={() => {
+                  handleDeleteOrder(params.row);
+                }}
+              />
+            )}
           </div>
         );
       },
@@ -140,7 +165,7 @@ const OrdersClient: React.FC<OrdersClient> = ({ orders }) => {
   ];
 
   return (
-    <div className="max-w-[1150px] m-auto text-xl">
+    <div className="max-w-[1050px] m-auto text-xl">
       <div className="mb-4 mt-8">
         <Heading title="Manage Orders" center />
       </div>
