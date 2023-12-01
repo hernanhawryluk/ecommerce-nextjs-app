@@ -2,7 +2,7 @@
 
 import Button from "@/app/components/button";
 import Heading from "@/app/components/heading";
-import Input from "@/app/components/inputs/input";
+import TextArea from "@/app/components/inputs/text-area";
 import { SafeUser } from "@/types";
 import { Rating } from "@mui/material";
 import { Order, Product, Review } from "@prisma/client";
@@ -93,7 +93,7 @@ const AddRating: React.FC<AddRatingProps> = ({ product, user }) => {
           onChange={(event, newValue) => setCustomValue("rating", newValue)}
         />
       </div>
-      <Input
+      <TextArea
         id="comment"
         label="Comment"
         disabled={isLoading}

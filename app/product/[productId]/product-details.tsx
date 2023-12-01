@@ -154,12 +154,12 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({ product }) => {
               handleQuantityDecrease={handleQuantityDecrease}
             />
             <Horizontal />
-            <div className="flex gap-4 text-2xl text-slate-600 font-bold mb-2">
+            <div className="flex gap-4 text-2xl text-slate-600 font-bold mb-1">
               <span>Total </span>
               {formatPrice(product.price * cartProduct.quantity)}
             </div>
             <Horizontal />
-            <div className="max-w-[300px]">
+            <div className="max-w-[340px] mt-1">
               <Button
                 label="Add to Cart"
                 onClick={() => {
