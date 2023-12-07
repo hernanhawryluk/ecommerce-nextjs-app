@@ -7,6 +7,9 @@ import Image from "next/image";
 import React from "react";
 import { useRouter } from "next/navigation";
 import { productRating } from "@/utils/product-rating";
+import { IoChevronDown } from "react-icons/io5";
+import Status from "../status";
+import { MdDone } from "react-icons/md";
 
 interface ProductCardProps {
   data: any;
@@ -21,7 +24,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ data }) => {
       className="col-span-1 cursor-pointer border-[1.2px] border-slate-200 bg-slate-50 rounded-sm p-2 transition hover:scale-110 active:scale-105 duration-500 active:duration-200 hover:bg-slate-100 text-center text-sm"
     >
       <div className="flex flex-col items-center w-full gap-1">
-        <div className="aspect-square overflow-hidden relative w-full">
+        <div className="aspect-square overflow-hidden relative w-full mt-2">
           <Image
             src={data.images[0].image}
             alt={data.name}
@@ -29,12 +32,46 @@ const ProductCard: React.FC<ProductCardProps> = ({ data }) => {
             className="w-full h-full object-contain"
           />
         </div>
-        <div className="mt-4">{truncateText(data.name)}</div>
-        <div>
-          <Rating value={productRating(data.reviews)} readOnly />
+        <div className="font-medium text-[1.04rem] mt-3 mb-1">
+          {truncateText(data.name)}
         </div>
-        <div>{data.reviews.length} reviews</div>
-        <div className="font-semibold">{formatPrice(data.price)}</div>
+        <div className="flex items-center gap-[1.5px] pb-1">
+          <Rating
+            value={productRating(data.reviews)}
+            readOnly
+            size="small"
+            precision={0.5}
+          />
+          <IoChevronDown size={12} className="opacity-60" />
+          <div className="opacity-60 font-bold">{data.reviews.length}</div>
+        </div>
+        {data.list !== data.price && (
+          <div className="font-normal text-sm text-slate-400 flex gap-1">
+            <span className="line-through">$ {formatPrice(data.list)}</span>
+            <Status
+              text={
+                Math.round(((data.list - data.price) / data.price) * 100) +
+                "% off"
+              }
+              icon={MdDone}
+              bg="bg-rose-400"
+              color="text-slate-700"
+            />
+          </div>
+        )}
+        <div
+          className={`flex items-center gap-1 ${
+            data.list === data.price && "mt-3"
+          }`}
+        >
+          <div>$</div>
+          <div className="font-semibold text-[1.3rem]">
+            {formatPrice(data.price)}
+          </div>
+        </div>
+        <div className={`${data.list === data.price && "mt-3"}`}>
+          free shipping
+        </div>
       </div>
     </div>
   );

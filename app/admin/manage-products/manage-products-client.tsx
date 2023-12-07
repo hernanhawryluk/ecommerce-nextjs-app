@@ -10,15 +10,17 @@ import {
   MdClose,
   MdDelete,
   MdDone,
+  MdEdit,
   MdRemoveRedEye,
 } from "react-icons/md";
 import ActionButton from "@/app/components/action-button";
-import { useCallback } from "react";
+import { useCallback, useState } from "react";
 import toast from "react-hot-toast";
 import axios from "axios";
 import { useRouter } from "next/navigation";
 import { deleteObject, getStorage, ref } from "firebase/storage";
 import firebaseApp from "@/libs/firebase";
+import AlertDialog from "@/app/components/alert-dialog";
 
 interface ManageProductsClientProps {
   products: Product[];
@@ -27,6 +29,10 @@ interface ManageProductsClientProps {
 const ManageProductsClient: React.FC<ManageProductsClientProps> = ({
   products,
 }) => {
+  const [open, setOpen] = useState(false);
+  const [nameToDelete, setNameToDelete] = useState("");
+  const [idToDelete, setIdToDelete] = useState("");
+  const [imagesToDelete, setImagesToDelete] = useState([]);
   const router = useRouter();
   const storage = getStorage(firebaseApp);
   let rows: any = [];
@@ -145,9 +151,18 @@ const ManageProductsClient: React.FC<ManageProductsClientProps> = ({
               }}
             />
             <ActionButton
+              icon={MdEdit}
+              onClick={() => {
+                router.push(`/admin/add-products/${params.row.id}`);
+              }}
+            />
+            <ActionButton
               icon={MdDelete}
               onClick={() => {
-                handleDelete(params.row.id, params.row.images);
+                setNameToDelete(params.row.name);
+                setIdToDelete(params.row.id);
+                setImagesToDelete(params.row.images);
+                setOpen(true);
               }}
             />
             <ActionButton
@@ -181,6 +196,13 @@ const ManageProductsClient: React.FC<ManageProductsClientProps> = ({
           disableRowSelectionOnClick
         />
       </div>
+      <AlertDialog
+        open={open}
+        setOpen={setOpen}
+        action={"delete"}
+        name={nameToDelete}
+        handleOK={() => handleDelete(idToDelete, imagesToDelete)}
+      />
     </div>
   );
 };

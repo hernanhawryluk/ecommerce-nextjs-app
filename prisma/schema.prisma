@@ -47,6 +47,7 @@ model Product {
   name              String
   description       String
   price             Float
+  list              Float
   brand             String
   category          String
   inStock           Boolean

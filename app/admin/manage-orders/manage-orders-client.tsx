@@ -13,11 +13,12 @@ import {
   MdRemoveRedEye,
 } from "react-icons/md";
 import ActionButton from "@/app/components/action-button";
-import { useCallback } from "react";
+import { useCallback, useState } from "react";
 import toast from "react-hot-toast";
 import axios from "axios";
 import { useRouter } from "next/navigation";
 import moment from "moment";
+import AlertDialog from "@/app/components/alert-dialog";
 
 type ExtendedOrder = Order & {
   user: User;
@@ -29,6 +30,10 @@ interface ManageOrdersClientProps {
 
 const ManageOrdersClient: React.FC<ManageOrdersClientProps> = ({ orders }) => {
   const router = useRouter();
+  const [open, setOpen] = useState(false);
+  const [nameToDelete, setNameToDelete] = useState("");
+  const [orderToDelete, setOrderToDelete] = useState("");
+
   let rows: any = [];
 
   if (orders) {
@@ -172,10 +177,10 @@ const ManageOrdersClient: React.FC<ManageOrdersClientProps> = ({ orders }) => {
     {
       field: "action",
       headerName: "Actions",
-      width: 180,
+      width: 210,
       renderCell: (params) => {
         return (
-          <div className="flex gap-3 w-full">
+          <div className="flex gap-3 ">
             <ActionButton
               icon={MdDeliveryDining}
               onClick={() => {
@@ -198,7 +203,9 @@ const ManageOrdersClient: React.FC<ManageOrdersClientProps> = ({ orders }) => {
               <ActionButton
                 icon={MdDelete}
                 onClick={() => {
-                  handleDeleteOrder(params.row);
+                  setNameToDelete(params.row.customer);
+                  setOrderToDelete(params.row);
+                  setOpen(true);
                 }}
               />
             )}
@@ -227,6 +234,13 @@ const ManageOrdersClient: React.FC<ManageOrdersClientProps> = ({ orders }) => {
           disableRowSelectionOnClick
         />
       </div>
+      <AlertDialog
+        open={open}
+        setOpen={setOpen}
+        action={"delete an order from "}
+        name={nameToDelete}
+        handleOK={() => handleDeleteOrder(orderToDelete)}
+      />
     </div>
   );
 };

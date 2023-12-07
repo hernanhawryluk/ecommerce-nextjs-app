@@ -21,6 +21,7 @@ import {
 import firebaseApp from "@/libs/firebase";
 import axios from "axios";
 import { useRouter } from "next/navigation";
+import { Product } from "@prisma/client";
 
 export type ImageType = {
   color: string;
@@ -34,18 +35,28 @@ export type UploadedImageType = {
   image: string;
 };
 
-const AddProductForm = () => {
+const EditProductForm = ({ product }: { product: Product }) => {
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
   const [images, setImages] = useState<ImageType[] | null>();
-  const [isProductCreated, setIsProductCreated] = useState(false);
+  const [oldImages, setOldImages] = useState<UploadedImageType[]>();
+
+  useEffect(() => {
+    setCustomValue("name", product.name);
+    setCustomValue("description", product.description);
+    setCustomValue("brand", product.brand);
+    setCustomValue("category", product.category);
+    setCustomValue("inStock", product.inStock);
+    setCustomValue("price", product.price);
+    setCustomValue("list", product.list);
+    setOldImages(product.images);
+  }, []);
 
   const {
     register,
     handleSubmit,
     setValue,
     watch,
-    reset,
     formState: { errors },
   } = useForm<FieldValues>({
     defaultValues: {
@@ -72,14 +83,6 @@ const AddProductForm = () => {
     setCustomValue("images", images);
   }, [images]);
 
-  useEffect(() => {
-    if (isProductCreated) {
-      reset();
-      setImages(null);
-      setIsProductCreated(false);
-    }
-  }, [isProductCreated]);
-
   const onSubmit: SubmitHandler<FieldValues> = async (data) => {
     setIsLoading(true);
     let uploadedImages: UploadedImageType[] = [];
@@ -89,85 +92,88 @@ const AddProductForm = () => {
       return toast.error("Category is not selected!");
     }
 
-    if (!data.images || data.images.length === 0) {
+    if (oldImages?.length === 0) {
       setIsLoading(false);
       return toast.error("No selected image!");
     }
 
-    const handleImageUploads = async () => {
-      toast("Creating product, please wait...");
-      try {
-        for (const item of data.images) {
-          if (item.image) {
-            const fileName = new Date().getTime() + "-" + item.image.name;
-            const storage = getStorage(firebaseApp);
-            const storageRef = ref(storage, `products/${fileName}`);
-            const uploadTask = uploadBytesResumable(storageRef, item.image);
+    if (data.images && data.images.length > 0) {
+      const handleImageUploads = async () => {
+        toast("Editing product, please wait...");
+        try {
+          for (const item of data.images) {
+            if (item.image) {
+              const fileName = new Date().getTime() + "-" + item.image.name;
+              const storage = getStorage(firebaseApp);
+              const storageRef = ref(storage, `products/${fileName}`);
+              const uploadTask = uploadBytesResumable(storageRef, item.image);
 
-            await new Promise<void>((resolve, reject) => {
-              uploadTask.on(
-                "state_changed",
-                (snapshot) => {
-                  const progress =
-                    (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-                  console.log("Upload is " + progress + "% done");
-                  switch (snapshot.state) {
-                    case "paused":
-                      console.log("Upload is paused");
-                      break;
-                    case "running":
-                      console.log("Upload is running");
-                      break;
-                  }
-                },
-                (error) => {
-                  console.log("Error uploading image", error);
-                  reject(error);
-                },
-                () => {
-                  getDownloadURL(uploadTask.snapshot.ref)
-                    .then((downloadURL) => {
-                      uploadedImages.push({
-                        ...item,
-                        image: downloadURL,
+              await new Promise<void>((resolve, reject) => {
+                uploadTask.on(
+                  "state_changed",
+                  (snapshot) => {
+                    const progress =
+                      (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+                    console.log("Upload is " + progress + "% done");
+                    switch (snapshot.state) {
+                      case "paused":
+                        console.log("Upload is paused");
+                        break;
+                      case "running":
+                        console.log("Upload is running");
+                        break;
+                    }
+                  },
+                  (error) => {
+                    console.log("Error uploading image", error);
+                    reject(error);
+                  },
+                  () => {
+                    getDownloadURL(uploadTask.snapshot.ref)
+                      .then((downloadURL) => {
+                        uploadedImages.push({
+                          ...item,
+                          image: downloadURL,
+                        });
+                        console.log("File available at", downloadURL);
+                        resolve();
+                      })
+                      .catch((error) => {
+                        console.log("Error getting the download URL", error);
+                        reject(error);
                       });
-                      console.log("File available at", downloadURL);
-                      resolve();
-                    })
-                    .catch((error) => {
-                      console.log("Error getting the download URL", error);
-                      reject(error);
-                    });
-                }
-              );
-            });
+                  }
+                );
+              });
+            }
           }
+        } catch (error) {
+          setIsLoading(false);
+          console.log("Error handling image uploads", error);
+          return toast.error("Error handling image uploads");
         }
-      } catch (error) {
-        setIsLoading(false);
-        console.log("Error handling image uploads", error);
-        return toast.error("Error handling image uploads");
-      }
-    };
-    await handleImageUploads();
+      };
+      await handleImageUploads();
+    }
 
     const list = data.list === "" || data.list === 0 ? data.price : data.list;
 
+    const mergedImages = [...product.images, ...uploadedImages];
+
     const productData = {
       ...data,
-      images: uploadedImages,
+      images: mergedImages,
       list: list,
     };
 
     axios
-      .post("/api/product", productData)
+      .put("/api/product/" + product.id, productData)
       .then(() => {
-        toast.success("Product created");
-        setIsProductCreated(true);
-        router.refresh();
+        toast.success("Product edited successfully");
+        router.back();
       })
       .catch((error) => {
-        toast.error("Something went wrong.");
+        toast.error("Oops! Something went wrong.");
         console.log("Error creating product", error);
       })
       .finally(() => {
@@ -202,7 +208,7 @@ const AddProductForm = () => {
 
   return (
     <>
-      <Header title="Add a Product" center />
+      <Header title="Edit a Product" center />
       <Input
         id="name"
         label="Name"
@@ -289,7 +295,12 @@ const AddProductForm = () => {
                   item={item}
                   addImageToState={addImageToState}
                   removeImageFromState={removeImageFromState}
-                  isProductCreated={isProductCreated}
+                  isProductCreated={false}
+                  previousImages={product.images.filter((image) => {
+                    if (image.color === item.color) {
+                      return image;
+                    }
+                  })}
                 />
               );
             })}
@@ -297,7 +308,7 @@ const AddProductForm = () => {
         </div>
       </div>
       <Button
-        label={isLoading ? "Loading..." : "Add Product"}
+        label={isLoading ? "Loading..." : "Save Product"}
         disabled={isLoading}
         onClick={handleSubmit(onSubmit)}
       />
@@ -305,4 +316,4 @@ const AddProductForm = () => {
   );
 };
 
-export default AddProductForm;
+export default EditProductForm;

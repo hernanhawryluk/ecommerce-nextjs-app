@@ -14,12 +14,13 @@ import {
   MdRemoveRedEye,
 } from "react-icons/md";
 import ActionButton from "@/app/components/action-button";
-import { useCallback, useEffect } from "react";
+import { useCallback, useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import axios from "axios";
 import { useRouter } from "next/navigation";
 import moment from "moment";
 import { useCart } from "@/context/cart-context";
+import AlertDialog from "../components/alert-dialog";
 
 type ExtendedOrder = Order & {
   user: User;
@@ -32,6 +33,10 @@ interface OrdersClient {
 const OrdersClient: React.FC<OrdersClient> = ({ orders }) => {
   const router = useRouter();
   const { handleRemovePaymentIntent } = useCart();
+  const [open, setOpen] = useState(false);
+  const [nameToDelete, setNameToDelete] = useState("");
+  const [orderToDelete, setOrderToDelete] = useState("");
+
   let rows: any = [];
 
   const handleDeleteOrder = useCallback((row: string) => {
@@ -157,7 +162,9 @@ const OrdersClient: React.FC<OrdersClient> = ({ orders }) => {
               <ActionButton
                 icon={MdDelete}
                 onClick={() => {
-                  handleDeleteOrder(params.row);
+                  setNameToDelete(params.row.id);
+                  setOrderToDelete(params.row);
+                  setOpen(true);
                 }}
               />
             )}
@@ -195,6 +202,13 @@ const OrdersClient: React.FC<OrdersClient> = ({ orders }) => {
           </div>
         </div>
       </div>
+      <AlertDialog
+        open={open}
+        setOpen={setOpen}
+        action={"delete your order "}
+        name={nameToDelete}
+        handleOK={() => handleDeleteOrder(orderToDelete)}
+      />
     </div>
   );
 };
