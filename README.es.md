@@ -2,7 +2,7 @@
 
 <div>
 <h4>Opciones de lenguaje:</h4>
-  <a href="https://github.com/hernanhawryluk/nextjs-commerce-app/blob/main/README.md"><img alt="Change language to English" src="https://img.shields.io/badge/language-english-red.svg"></a>
+  <a href="https://github.com/hernanhawryluk/ecommerce-nextjs-app/blob/main/README.md"><img alt="Change language to English" src="https://img.shields.io/badge/language-english-red.svg"></a>
   <a href="#"><img alt="Visitor Badge" src="https://visitor-badge.laobi.icu/badge?page_id=hernanhawryluk.ecommerce-nextjs-app"></a>
 </div>
 <div>
