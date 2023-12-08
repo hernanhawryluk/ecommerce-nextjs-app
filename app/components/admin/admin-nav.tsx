@@ -17,7 +17,7 @@ const AdminNav = () => {
   return (
     <div className="w-full shadow-xl top-20 border-b-[0.5px] bg-slate-300">
       <Container>
-        <div className="flex flex-row items-center pt-2 justify-between md:justify-center gap-4 md:gap-12 overflow-x-auto flex-nowrap">
+        <div className="flex flex-row flew-wrap items-center pt-2 justify-between md:justify-center gap-4 md:gap-12 overflow-x-auto">
           <Link href={"/admin"}>
             <AdminNavItem
               label="Summary"

@@ -46,7 +46,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ data }) => {
           <div className="opacity-60 font-bold">{data.reviews.length}</div>
         </div>
         {data.list !== data.price && (
-          <div className="font-normal text-sm text-slate-400 flex gap-2 mb-1">
+          <div className="flex flex-wrap justify-center font-normal text-sm text-slate-400 gap-2 mb-1">
             <span className="line-through">$ {formatPrice(data.list)}</span>
             <Status
               text={
@@ -54,7 +54,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ data }) => {
                 "% OFF"
               }
               icon={MdDone}
-              bg="bg-rose-600"
+              bg="bg-pink-600"
               color="text-white font-medium"
             />
           </div>

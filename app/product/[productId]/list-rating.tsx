@@ -12,13 +12,13 @@ const ListRating: React.FC<ListRatingProps> = ({ product }) => {
   if (product.reviews.length === 0) return null;
 
   return (
-    <div>
+    <div className="sm:pl-3">
       <Heading title="Product Review" />
       <div className="text-sm mt-2">
         {product.reviews &&
           product.reviews.map((review: any) => {
             return (
-              <div key={review.id} className="max-w-[400px]">
+              <div key={review.id}>
                 <div className="flex gap-2 items-center">
                   <div>
                     <Avatar src={review.user.image} />

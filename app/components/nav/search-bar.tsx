@@ -46,7 +46,7 @@ const SearchBar = () => {
       />
       <button
         onClick={handleSubmit(onSubmit)}
-        className="bg-pink-700 hover:opacity-80 h-9 font-medium text-white p-[0.3rem] w-20 rounded-r-md active:scale-95 transition"
+        className="bg-pink-700 opacity-90 hover:opacity-100 h-9 font-semibold text-white p-[0.3rem] w-20 rounded-r-md active:scale-95 transition"
       >
         Search
       </button>

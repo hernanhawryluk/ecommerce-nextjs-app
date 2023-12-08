@@ -50,6 +50,22 @@ const AddRating: React.FC<AddRatingProps> = ({ product, user }) => {
 
   const onSubmit: SubmitHandler<FieldValues> = async (data) => {
     setIsLoading(true);
+
+    if (!user) {
+      setIsLoading(false);
+      return toast.error("You must be logged in.");
+    }
+
+    if (userReview) {
+      setIsLoading(false);
+      return toast.error("You have already reviewed this product.");
+    }
+
+    if (!deliveredOrder) {
+      setIsLoading(false);
+      return toast.error("You have not recibed this product yet.");
+    }
+
     if (data.rating === 0) {
       setIsLoading(false);
       return toast.error("No rating selected.");
@@ -71,7 +87,7 @@ const AddRating: React.FC<AddRatingProps> = ({ product, user }) => {
       });
   };
 
-  if (!user || !product) return null;
+  if (!product) return null;
 
   const deliveredOrder = user?.orders.some(
     (order) =>
@@ -80,13 +96,11 @@ const AddRating: React.FC<AddRatingProps> = ({ product, user }) => {
   );
 
   const userReview = product?.reviews.find((review: Review) => {
-    return review.userId === user.id;
+    return review.userId === user?.id;
   });
 
-  if (userReview || !deliveredOrder) return null;
-
   return (
-    <div className="flex flex-col gap-2 max-w-[500px]">
+    <div className="flex flex-col gap-3 max-w-[550px] h-full">
       <Heading title="Rate this product" />
       <div>
         <Rating

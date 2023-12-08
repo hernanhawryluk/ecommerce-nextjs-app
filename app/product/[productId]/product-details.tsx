@@ -8,10 +8,11 @@ import SetQuantity from "@/app/components/products/set-quantity";
 import Button from "@/app/components/button";
 import ProductImage from "@/app/components/products/product-image";
 import { useCart } from "@/context/cart-context";
-import { MdCheckCircle } from "react-icons/md";
+import { MdCheckCircle, MdDone, MdOutlineClose } from "react-icons/md";
 import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
 import { formatPrice } from "@/utils/format-price";
+import Status from "@/app/components/status";
 interface ProductDetailsProps {
   product: any;
 }
@@ -111,19 +112,26 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({ product }) => {
         <Horizontal />
         <div className="text-justify">{product.description}</div>
         <Horizontal />
-        <div>
-          <span className="font-semibold">CATEGORY:</span> {product.category}
-        </div>
-        <div>
-          <span className="font-semibold">BRAND:</span> {product.brand}
-        </div>
-        <div
-          className={`
-        font-semibold
-          ${product.inStock ? "text-teal-500" : "text-rose-500"}
-          `}
-        >
-          {product.inStock ? "In stock" : "Out of stock"}
+        <div className="flex flex-wrap justify-between">
+          <div className="flex-col">
+            <div className="mb-1">
+              <span className="font-semibold">CATEGORY:</span>{" "}
+              {product.category}
+            </div>
+            <div>
+              <span className="font-semibold">BRAND:</span> {product.brand}
+            </div>
+          </div>
+
+          <div className={`text-xl flex gap-2 sm:w-[50%] mt-1}`}>
+            <span className="font-semibold text-sm pt-[5px]">STOCK:</span>
+            <Status
+              text={product.inStock ? "In stock" : "Out of stock"}
+              icon={product.inStock ? MdDone : MdOutlineClose}
+              bg={product.inStock ? "bg-teal-600" : "bg-pink-600"}
+              color="text-white font-normal flex justify-center h-8"
+            />
+          </div>
         </div>
         <Horizontal />
         {isProductInCart ? (
@@ -147,21 +155,42 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({ product }) => {
               cartProduct={cartProduct}
               handleColorSelect={handleColorSelect}
             />
-            <Horizontal />
             <SetQuantity
               cartProduct={cartProduct}
               handleQuantityIncrease={handleQuantityIncrease}
               handleQuantityDecrease={handleQuantityDecrease}
             />
+
             <Horizontal />
-            <div className="flex gap-4 text-2xl text-slate-600 font-bold mb-1">
-              <span>Total </span>
-              {formatPrice(product.price * cartProduct.quantity)}
+            {product.list !== product.price && (
+              <div className="flex flex-wrap font-normal text-md text-slate-400 gap-2 mb-1">
+                <span className="line-through text-2xl">
+                  $ {formatPrice(product.list * cartProduct.quantity)}
+                </span>
+                <Status
+                  text={
+                    Math.round(
+                      ((product.list - product.price) / product.price) * 100
+                    ) + "% OFF"
+                  }
+                  icon={MdDone}
+                  bg="bg-pink-600"
+                  color="text-white font-medium"
+                />
+              </div>
+            )}
+            <div className="flex gap-4 text-3xl text-slate-600 font-bold mb-1">
+              <span>Total</span>
+              <div>
+                <span>$ </span>
+                {formatPrice(product.price * cartProduct.quantity)}
+              </div>
             </div>
             <Horizontal />
             <div className="max-w-[340px] mt-1">
               <Button
-                label="Add to Cart"
+                label={product.inStock ? "Add to Cart" : "Out of stock"}
+                disabled={!product.inStock}
                 onClick={() => {
                   handleAddProductToCart(cartProduct);
                   toast.success("Product added to cart.");
