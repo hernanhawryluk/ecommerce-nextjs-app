@@ -21,7 +21,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ data }) => {
   return (
     <div
       onClick={() => router.push(`/product/${data.id}`)}
-      className="col-span-1 cursor-pointer border-[1.2px] border-slate-200 bg-slate-50 rounded-sm p-2 transition hover:scale-110 active:scale-105 duration-500 active:duration-200 hover:bg-slate-100 text-center text-sm"
+      className="col-span-1 cursor-pointer border-[1.2px] border-slate-200 bg-slate-50 rounded-md p-2 transition hover:scale-110 active:scale-105 duration-500 active:duration-200 hover:bg-slate-100 text-center text-sm"
     >
       <div className="flex flex-col items-center w-full gap-1">
         <div className="aspect-square overflow-hidden relative w-full mt-2">
@@ -46,16 +46,16 @@ const ProductCard: React.FC<ProductCardProps> = ({ data }) => {
           <div className="opacity-60 font-bold">{data.reviews.length}</div>
         </div>
         {data.list !== data.price && (
-          <div className="font-normal text-sm text-slate-400 flex gap-1">
+          <div className="font-normal text-sm text-slate-400 flex gap-2 mb-1">
             <span className="line-through">$ {formatPrice(data.list)}</span>
             <Status
               text={
                 Math.round(((data.list - data.price) / data.price) * 100) +
-                "% off"
+                "% OFF"
               }
               icon={MdDone}
-              bg="bg-rose-400"
-              color="text-slate-700"
+              bg="bg-rose-600"
+              color="text-white font-medium"
             />
           </div>
         )}

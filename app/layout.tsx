@@ -24,7 +24,7 @@ export default async function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${poppins.className}, flex flex-col min-h-screen text-slate-700`}
+        className={`${poppins.className}, flex flex-col min-h-screen text-slate-700 bg-slate-100`}
       >
         <Toaster
           toastOptions={{

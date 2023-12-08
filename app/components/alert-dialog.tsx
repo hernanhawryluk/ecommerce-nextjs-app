@@ -31,7 +31,7 @@ const AlertDialog = ({
         </DialogTitle>
         <Divider />
         <DialogContent>
-          Are you sure you want to {action} "{name}"?
+          Are you sure you want to {action} &quot;{name}&quot;?
         </DialogContent>
         <DialogActions>
           <Button
