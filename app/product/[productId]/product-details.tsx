@@ -93,7 +93,7 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({ product }) => {
   }, [cartProduct]);
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-12 sm:mt-6">
       <div>
         <ProductImage
           cartProduct={cartProduct}
@@ -101,7 +101,7 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({ product }) => {
           handleColorSelect={handleColorSelect}
         />
       </div>
-      <div className="flex flex-col gap-1 text-slate-500 text-sm">
+      <div className="flex flex-col gap-1 text-slate-500 text-sm my-auto">
         <h2 className="text-3xl font-medium text-slate-700 mb-1">
           {product.name}
         </h2>
@@ -114,7 +114,7 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({ product }) => {
         <Horizontal />
         <div className="flex flex-wrap justify-between">
           <div className="flex-col">
-            <div className="mb-1">
+            <div className="mb-2">
               <span className="font-semibold">CATEGORY:</span>{" "}
               {product.category}
             </div>
@@ -134,71 +134,74 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({ product }) => {
           </div>
         </div>
         <Horizontal />
-        {isProductInCart ? (
-          <>
-            <p className="mb-2 text-slate-500 flex  items-center gap-1">
-              <MdCheckCircle size={20} className="text-teal-400" />
+
+        <div className="flex flex-col gap-1">
+          <SetColor
+            images={product.images}
+            cartProduct={cartProduct}
+            handleColorSelect={handleColorSelect}
+          />
+          <SetQuantity
+            cartProduct={cartProduct}
+            handleQuantityIncrease={handleQuantityIncrease}
+            handleQuantityDecrease={handleQuantityDecrease}
+          />
+
+          <Horizontal />
+          {product.list !== product.price && (
+            <div className="flex flex-wrap font-normal text-md text-slate-400 gap-2 mb-1">
+              <span className="line-through text-2xl">
+                $ {formatPrice(product.list * cartProduct.quantity)}
+              </span>
+              <Status
+                text={
+                  Math.round(
+                    ((product.list - product.price) / product.price) * 100
+                  ) + "% OFF"
+                }
+                icon={MdDone}
+                bg="bg-pink-600"
+                color="text-white font-medium"
+              />
+            </div>
+          )}
+          <div className="flex gap-4 text-3xl text-slate-600 font-bold">
+            <span>Total</span>
+            <div>
+              <span>$ </span>
+              {formatPrice(product.price * cartProduct.quantity)}
+            </div>
+          </div>
+          <Horizontal />
+
+          {isProductInCart && (
+            <p className="mt-1 text-slate-500 flex  items-center gap-1">
+              <MdCheckCircle size={20} className="text-teal-500" />
               <span>Product added to cart</span>
             </p>
-            <div className="max-w-[300px]">
-              <Button
-                label="View Cart"
-                outline
-                onClick={() => router.push("/cart")}
-              />
-            </div>
-          </>
-        ) : (
-          <>
-            <SetColor
-              images={product.images}
-              cartProduct={cartProduct}
-              handleColorSelect={handleColorSelect}
-            />
-            <SetQuantity
-              cartProduct={cartProduct}
-              handleQuantityIncrease={handleQuantityIncrease}
-              handleQuantityDecrease={handleQuantityDecrease}
-            />
-
-            <Horizontal />
-            {product.list !== product.price && (
-              <div className="flex flex-wrap font-normal text-md text-slate-400 gap-2 mb-1">
-                <span className="line-through text-2xl">
-                  $ {formatPrice(product.list * cartProduct.quantity)}
-                </span>
-                <Status
-                  text={
-                    Math.round(
-                      ((product.list - product.price) / product.price) * 100
-                    ) + "% OFF"
-                  }
-                  icon={MdDone}
-                  bg="bg-pink-600"
-                  color="text-white font-medium"
-                />
-              </div>
-            )}
-            <div className="flex gap-4 text-3xl text-slate-600 font-bold mb-1">
-              <span>Total</span>
-              <div>
-                <span>$ </span>
-                {formatPrice(product.price * cartProduct.quantity)}
-              </div>
-            </div>
-            <Horizontal />
-            <div className="max-w-[340px] mt-1">
-              <Button
-                label={product.inStock ? "Add to Cart" : "Out of stock"}
-                disabled={!product.inStock}
-                onClick={() => {
+          )}
+          <div className="max-w-[340px] mt-3">
+            <Button
+              label={
+                !product.inStock
+                  ? "Out of stock"
+                  : isProductInCart
+                  ? "View cart"
+                  : "Add to cart"
+              }
+              disabled={!product.inStock}
+              outline={isProductInCart}
+              onClick={() => {
+                if (isProductInCart) {
+                  router.push("/cart");
+                } else {
                   handleAddProductToCart(cartProduct);
                   toast.success("Product added to cart.");
-                }}
-              />
-            </div>
-          </>
-        )}
+                }
+              }}
+            />
+          </div>
+        </div>
       </div>
     </div>
   );

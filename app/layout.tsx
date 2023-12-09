@@ -27,13 +27,20 @@ export default async function RootLayout({
         className={`${poppins.className}, flex flex-col min-h-screen text-slate-700 bg-slate-100`}
       >
         <Toaster
+          containerStyle={{ top: "88px" }}
           toastOptions={{
+            position: "top-right",
+            duration: 3000,
+
             style: {
-              background: "rgb(51, 65, 85",
+              background: "rgb(51, 65, 85)",
               color: "#fff",
+              fontSize: "16px",
+              fontFamily: poppins.style.fontFamily,
             },
           }}
         />
+
         <CartProvider>
           <NavBar currentUser={currentUser} />
           <main className="flex-grow">{children}</main>

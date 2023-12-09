@@ -10,6 +10,7 @@ import ItemContent from "./item-content";
 import { formatPrice } from "@/utils/format-price";
 import { SafeUser } from "@/types";
 import { useRouter } from "next/navigation";
+import { IoCartOutline } from "react-icons/io5";
 
 interface CartClientProps {
   currentUser: SafeUser | null;
@@ -21,16 +22,21 @@ const CartClient: React.FC<CartClientProps> = ({ currentUser }) => {
 
   if (!cartProducts || cartProducts.length === 0) {
     return (
-      <div className="flex flex-col items-center justify-center mt-8">
-        <div className="text-2xl">Your cart is empty</div>
-        <div>
-          <Link
-            href={"/"}
-            className="text-slate-500 flex items-center gap-1 mt-2 hover:scale-110 active:scale-100 transition"
-          >
-            <MdArrowBack />
-            <span>Start Shopping</span>
-          </Link>
+      <div className="flex justify-center items-center gap-4 sm:gap-8 pt-6 sm:pt-[5rem]">
+        <div className="p-4 sm:p-6 border-4 border-slate-700 rounded-full">
+          <IoCartOutline size={70} />
+        </div>
+        <div className="flex flex-col items-start justify-center">
+          <div className="text-2xl">Your cart is empty</div>
+          <div>
+            <Link
+              href={"/"}
+              className="text-slate-500 flex items-center justify gap-1 mt-2 hover:scale-110 active:scale-100 transition"
+            >
+              <MdArrowBack />
+              <span>Start Shopping</span>
+            </Link>
+          </div>
         </div>
       </div>
     );

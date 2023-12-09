@@ -13,7 +13,7 @@ const Status: React.FC<StatusProps> = ({ text, icon: Icon, bg, color }) => {
       className={`
     ${bg}
     ${color}
-    px-1
+    px-2
     rounded
     flex
     items-center

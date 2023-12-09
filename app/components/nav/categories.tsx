@@ -17,7 +17,7 @@ const Categories = () => {
   return (
     <div className="hidden sm:block border-b-[0.5px] bg-slate-300">
       <Container>
-        <div className="pt-2 flex flex-wrap items-center justify-between overlow-x-auto">
+        <div className="pt-1 flex flex-wrap items-center justify-between overlow-x-auto">
           {categories.map((item) => (
             <Category
               key={item.label}

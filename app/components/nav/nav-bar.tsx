@@ -8,10 +8,9 @@ import CartCount from "./cart-count";
 import UserMenu from "./user-menu";
 import Categories from "./categories";
 import SearchBar from "./search-bar";
-import { CiSearch } from "react-icons/ci";
+import { IoSearchOutline } from "react-icons/io5";
 import { SafeUser } from "@/types";
 import { MdCancel } from "react-icons/md";
-import { SiReact } from "react-icons/si";
 
 const exo = Monoton({ subsets: ["latin"], weight: ["400"] });
 
@@ -29,10 +28,11 @@ const NavBar: React.FC<NavBarPros> = ({ currentUser }) => {
           <div className="flex items-center justify-between sm:px-2 xl:px-0">
             <Link
               href="/"
-              className={`${exo.className} flex items-center gap-1 text-white opacity-90 font-normal italic text-[1.3rem] sm:text-[1.6rem] hover:scale-105 active:scale-100 transition`}
+              className={`${exo.className} flex items-center text-white opacity-90 font-normal italic text-[1.4rem] sm:text-[1.6rem] hover:scale-105 active:scale-100 transition`}
             >
-              <SiReact />
-              Smart Store
+              <span className="text-[1.6rem] sm:text-[1.75rem]">S</span>mart{" "}
+              <span className="text-[1.6rem] sm:text-[1.75rem] ml-1">S</span>
+              tore
             </Link>
 
             <div className="flex items-center gap-4 md:gap-8 xl:gap-12">
@@ -50,7 +50,7 @@ const NavBar: React.FC<NavBarPros> = ({ currentUser }) => {
                     onClick={() => setSearchBar(false)}
                   />
                 ) : (
-                  <CiSearch
+                  <IoSearchOutline
                     className="text-[1.9rem] text-white pb-[0.1rem] cursor-pointer hidden md:block hover:scale-110 active:scale-[0.9] transition"
                     onClick={() => setSearchBar(true)}
                   />
