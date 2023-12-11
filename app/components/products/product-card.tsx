@@ -50,7 +50,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ data }) => {
             <span className="line-through">$ {formatPrice(data.list)}</span>
             <Status
               text={
-                Math.round(((data.list - data.price) / data.price) * 100) +
+                Math.round(((data.list - data.price) / data.list) * 100) +
                 "% OFF"
               }
               icon={MdDone}

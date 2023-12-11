@@ -28,7 +28,7 @@ const NavBar: React.FC<NavBarPros> = ({ currentUser }) => {
           <div className="flex items-center justify-between sm:px-2 xl:px-0">
             <Link
               href="/"
-              className={`${exo.className} flex items-center text-white opacity-90 font-normal italic text-[1.4rem] sm:text-[1.6rem] hover:scale-105 active:scale-100 transition`}
+              className={`${exo.className} flex items-center text-white opacity-90 font-normal italic text-[1.65rem] sm:text-[1.8rem] hover:scale-105 active:scale-100 transition`}
             >
               <span className="text-[1.6rem] sm:text-[1.75rem]">S</span>mart{" "}
               <span className="text-[1.6rem] sm:text-[1.75rem] ml-1">S</span>
