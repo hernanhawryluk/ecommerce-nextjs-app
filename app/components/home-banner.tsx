@@ -15,8 +15,8 @@ const HomeBanner = () => {
   }, []);
 
   return (
-    <div className="mt-4 sm:mt-0 relative bg-gradient-to-r from-sky-800 to-slate-600 mb-8 rounded-md overflow-hidden h-[250px]">
-      <div className="flex flex-col sm:gap-2 md:flex-row items-center justify-evenly">
+    <div className="mt-4 sm:mt-0 relative bg-gradient-to-r from-sky-800 to-slate-600 mb-8 rounded-md overflow-hidden pb-4">
+      <div className="flex flex-row sm:gap-2 items-center justify-evenly">
         <div className="mb-2 sm:mb-1 text-center pt-7 sm:pt-9">
           <h1
             className={`${exo.className} text-3xl md:text-[3.2rem] font-bold text-white mb-1 sm:mb-4`}
@@ -30,13 +30,13 @@ const HomeBanner = () => {
             GET 20% OFF
           </p>
         </div>
-        <div className="w-1/2 sm:w-1/3 sm:top-1 relative aspect-video">
+        <div className="w-1/3 2xl:w-1/4 top-2 hidden sm:block relative aspect-video">
           <Image
             src="/banner-image.png"
             alt="Banner image"
             quality={95}
             fill
-            className="object-contain"
+            className="object-contain absolute"
           />
         </div>
       </div>

@@ -11,6 +11,7 @@ import SearchBar from "./search-bar";
 import { IoSearchOutline } from "react-icons/io5";
 import { SafeUser } from "@/types";
 import { MdCancel } from "react-icons/md";
+import { useRouter } from "next/navigation";
 
 const exo = Monoton({ subsets: ["latin"], weight: ["400"] });
 
@@ -20,6 +21,11 @@ interface NavBarPros {
 
 const NavBar: React.FC<NavBarPros> = ({ currentUser }) => {
   const [searchBar, setSearchBar] = useState(false);
+  const router = useRouter();
+
+  const resetSearch = () => {
+    router.push("/");
+  };
 
   return (
     <div className="sticky top-0 w-full bg-slate-700 z-30 shadow-xl">
@@ -47,7 +53,10 @@ const NavBar: React.FC<NavBarPros> = ({ currentUser }) => {
                 {searchBar ? (
                   <MdCancel
                     className="text-[1.9rem] text-white pb-[0.1rem] cursor-pointer hidden md:block hover:scale-110 active:scale-[0.9] transition"
-                    onClick={() => setSearchBar(false)}
+                    onClick={() => {
+                      setSearchBar(false);
+                      resetSearch();
+                    }}
                   />
                 ) : (
                   <IoSearchOutline
