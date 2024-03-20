@@ -27,14 +27,14 @@ const TextArea: React.FC<TextAreaProps> = ({
         disabled={disabled}
         {...register(id, { required })}
         placeholder=""
-        className={`peer w-full p-4 pt-6 max-h-[150px] min-h-[150px] outline-none bg-white font-light border-2 rounded-md transition disabled:opacity-70 disabled:cursor-not-allowed 
+        className={`peer block px-3 h-[150px] pb-[13px] pt-[13px] w-full text-sm text-gray-900 bg-transparent rounded-lg border-2 appearance-none focus:outline-none focus:ring-0 disabled:cursor-not-allowed 
       ${errors[id] ? "border-pink-600" : "border-slate-300"}
       ${errors[id] ? "focus:border-pink-600" : "focus:border-slate-300"}
       `}
       />
       <label
         htmlFor={id}
-        className={`absolute cursor-text text-md duration-150 transform -translate-y-3 top-3 peer-focus:top-5 z-10 origin-[0] left-4 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-4
+        className={`absolute text-sm text-gray-400 duration-300 transform -translate-y-[17px] scale-75 top-2 z-10 origin-[0] bg-slate-100 ml-1 px-2 peer-focus:text-slate-800 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-[60px] peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-[17px] rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto start-1
         ${errors[id] ? "text-pink-600" : "text-slate-400"}
         `}
       >

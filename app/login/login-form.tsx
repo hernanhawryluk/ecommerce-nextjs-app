@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import Heading from "../components/heading";
 import Input from "../components/inputs/input";
+import HorizontalLine from "../components/horizontal-line";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import Button from "../components/button";
 import Link from "next/link";
@@ -62,14 +63,7 @@ const LoginForm: React.FC<LoginFormProps> = ({ currentUser }) => {
 
   return (
     <>
-      <Heading title="Sing in to SmartStore" />
-      <Button
-        icon={AiOutlineGoogle}
-        label="Continue with Google"
-        onClick={() => signIn("google")}
-        outline
-      />
-      <hr className="bg-slate-300 w-full h-px" />
+      <Heading title="Sing in to SmartStore" custom="mb-1" />
       <Input
         id="email"
         label="Email"
@@ -90,6 +84,13 @@ const LoginForm: React.FC<LoginFormProps> = ({ currentUser }) => {
       <Button
         label={isLoading ? "Loading" : "Login"}
         onClick={handleSubmit(onSubmit)}
+      />
+      <HorizontalLine or />
+      <Button
+        icon={AiOutlineGoogle}
+        label="Continue with Google"
+        onClick={() => signIn("google")}
+        outline
       />
       <p className="text-sm">
         Do not have an account?{" "}

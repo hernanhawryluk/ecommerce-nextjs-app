@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import Heading from "../components/heading";
 import Input from "../components/inputs/input";
+import HorizontalLine from "../components/horizontal-line";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import Button from "../components/button";
 import Link from "next/link";
@@ -75,14 +76,7 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ currentUser }) => {
 
   return (
     <>
-      <Heading title="Sign up for SmartStore" />
-      <Button
-        icon={AiOutlineGoogle}
-        label="Continue with Google"
-        onClick={() => signIn("google")}
-        outline
-      />
-      <hr className="bg-slate-300 w-full h-px" />
+      <Heading title="Sign up for SmartStore" custom="mb-1" />
       <Input
         id="name"
         label="Name"
@@ -111,6 +105,13 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ currentUser }) => {
       <Button
         label={isLoading ? "Loading" : "Sign Up"}
         onClick={handleSubmit(onSubmit)}
+      />
+      <HorizontalLine or />
+      <Button
+        icon={AiOutlineGoogle}
+        label="Sign up with Google"
+        onClick={() => signIn("google")}
+        outline
       />
       <p className="text-sm">
         Already have an account?{" "}

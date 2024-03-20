@@ -22,7 +22,10 @@ const CartClient: React.FC<CartClientProps> = ({ currentUser }) => {
 
   if (!cartProducts || cartProducts.length === 0) {
     return (
-      <div className="flex justify-center items-center gap-4 sm:gap-8 pt-6 sm:pt-[5rem]">
+      <div
+        className="flex justify-center items-center gap-4 sm:gap-8"
+        style={{ minHeight: "calc(100vh - 430px)" }}
+      >
         <div className="p-4 sm:p-6 border-4 border-slate-700 rounded-full">
           <IoCartOutline size={70} />
         </div>
